@@ -714,9 +714,9 @@
 
         .map-table {
             position: absolute;
-            width: 66px;
-            height: 50px;
-            border-radius: 16px;
+            width: 52px;
+            height: 40px;
+            border-radius: 12px;
             display: grid;
             place-items: center;
             border: 2px solid transparent;
@@ -768,6 +768,15 @@
             border: 1px solid var(--line);
             font-size: 12px;
             font-weight: 800
+        }
+
+        .map-counter {
+            top: 11px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-soft);
+            color: var(--primary-dark);
+            border-color: #e8c66e
         }
 
         .map-entrance {
@@ -864,6 +873,21 @@
             background: #fff;
             border-radius: 24px 24px 0 0;
             padding: 22px
+        }
+
+        .map::after {
+            content: "💳 Counter";
+            position: absolute;
+            top: 11px;
+            right: 15px;
+            z-index: 2;
+            padding: 6px 9px;
+            border-radius: 10px;
+            background: var(--primary-soft);
+            border: 1px solid #e8c66e;
+            color: var(--primary-dark);
+            font-size: 11px;
+            font-weight: 800
         }
 
         .modal-head {
@@ -1158,8 +1182,10 @@
             }
 
             .map-table {
-                width: 58px;
-                height: 46px
+                width: 44px;
+                height: 34px;
+                border-radius: 10px;
+                font-size: 11px
             }
 
             .cart-fab {
@@ -1343,9 +1369,9 @@
         <section id="staff" class="screen">
             <div class="container">
                 <div class="hero">
-                    <div class="eyebrow">RESTAURANT STAFF</div>
+                    <div class="eyebrow">RESTAURANTS</div>
                     <h1>Order Management</h1>
-                    <p>พนักงานเห็นเฉพาะ Order ของร้านตัวเอง</p>
+                    <p>ร้านอาหารเห็นเฉพาะ Order ของร้านตัวเอง</p>
                 </div>
                 <div class="card" style="padding:17px">
                     <div class="row">
@@ -1405,7 +1431,7 @@
                 </div>
                 <div id="counterRestaurantDirectory" class="restaurant-directory card section"></div>
                 <div class="card section" style="padding:17px">
-                    <div class="section-title"><div><h2>เพิ่มร้านค้าเข้าร่วม</h2><div class="muted small">สร้างร้านใหม่พร้อมข้อมูลสำหรับเข้าสู่ระบบ Staff</div></div></div>
+                    <div class="section-title"><div><h2>เพิ่มร้านค้าเข้าร่วม</h2><div class="muted small">สร้างร้านใหม่พร้อมข้อมูลสำหรับเข้าสู่ระบบ Restaurants</div></div></div>
                     <button class="btn btn-primary" onclick="openAddRestaurantModal()">+ เพิ่มร้านค้า</button>
                 </div>
                 <div id="counterRequests" class="section"></div>
@@ -1607,8 +1633,8 @@
             function releaseTable(id) { const t = getTable(id); if (!t) return; state.orders.filter(o => o.tableId === id).forEach(o => o.status = 'done'); t.status = 'available'; if (state.session && state.session.tableId === id) endSession({ clearCart: true }); closeModalNow(); toast(`ชำระเงินสำเร็จ · โต๊ะ ${id} กลับเป็นว่าง`); renderAll() }
 
             /* ========================= ROLE SWITCHER ========================= */
-            function openRoleMenu() { openModal(`<div class="modal-head"><h2>เข้าสู่ระบบ</h2><button class="close" onclick="closeModalNow()">×</button></div><p class="muted">เลือกบทบาทสำหรับ Demo</p><button class="btn btn-secondary btn-full" style="margin:5px 0" onclick="switchRole('customer')">👤 Customer</button><button class="btn btn-secondary btn-full" style="margin:5px 0" onclick="openStaffLoginModal()">👨‍🍳 Staff</button><button class="btn btn-secondary btn-full" style="margin:5px 0" onclick="switchRole('counter')">🧑‍💼 Counter / Administrator</button>`) }
-            function openStaffLoginModal() { openModal(`<div class="modal-head"><h2>เข้าสู่ระบบ Staff</h2><button class="close" onclick="closeModalNow()">×</button></div><p class="muted">กรอก Restaurant ID ของร้านตัวเอง</p><label class="small bold" for="staffRestaurantIdInput">Restaurant ID</label><input id="staffRestaurantIdInput" class="search" style="width:100%;margin-top:8px" placeholder="กรอก Restaurant ID" autocomplete="off" /><div id="staffLoginError" class="muted small" style="min-height:20px;margin-top:7px"></div><button class="btn btn-primary btn-full" style="margin-top:8px" onclick="loginStaff()">เข้าสู่หน้า Staff</button>`) }
+            function openRoleMenu() { openModal(`<div class="modal-head"><h2>เข้าสู่ระบบ</h2><button class="close" onclick="closeModalNow()">×</button></div><p class="muted">เลือกบทบาทสำหรับ Demo</p><button class="btn btn-secondary btn-full" style="margin:5px 0" onclick="switchRole('customer')">👤 Customer</button><button class="btn btn-secondary btn-full" style="margin:5px 0" onclick="openStaffLoginModal()">🍽️ Restaurants</button><button class="btn btn-secondary btn-full" style="margin:5px 0" onclick="switchRole('counter')">🧑‍💼 Counter / Administrator</button>`) }
+            function openStaffLoginModal() { openModal(`<div class="modal-head"><h2>เข้าสู่ระบบ Restaurants</h2><button class="close" onclick="closeModalNow()">×</button></div><p class="muted">กรอก Restaurant ID ของร้านตัวเอง</p><label class="small bold" for="staffRestaurantIdInput">Restaurant ID</label><input id="staffRestaurantIdInput" class="search" style="width:100%;margin-top:8px" placeholder="กรอก Restaurant ID" autocomplete="off" /><div id="staffLoginError" class="muted small" style="min-height:20px;margin-top:7px"></div><button class="btn btn-primary btn-full" style="margin-top:8px" onclick="loginStaff()">เข้าสู่หน้า Restaurants</button>`) }
             function loginStaff() { const id = document.getElementById('staffRestaurantIdInput').value.trim().toLowerCase(); const restaurant = restaurants.find(r => r.id === id); if (!restaurant) { document.getElementById('staffLoginError').textContent = 'ไม่พบ Restaurant ID นี้'; return } switchRole('staff', restaurant.id) }
             function switchRole(role, restaurantId) { state.role = role; if (role === 'staff' && restaurantId) state.staffRestaurantId = restaurantId; closeModalNow(); if (role === 'customer') go('home'); else if (role === 'staff') go('staff'); else go('counter') }
 
@@ -1623,6 +1649,11 @@
             function openAddRestaurantModal() { openModal(`<div class="modal-head"><h2>เพิ่มร้านค้าใหม่</h2><button class="close" onclick="closeModalNow()">×</button></div><label class="small bold">ชื่อร้าน<input id="newRestaurantName" class="search" style="width:100%;margin-top:8px" placeholder="เช่น ร้านข้าวแกง"></label><label class="small bold" style="display:block;margin-top:12px">Restaurant ID<input id="newRestaurantId" class="search" style="width:100%;margin-top:8px" placeholder="เช่น my-food-shop"></label><label class="small bold" style="display:block;margin-top:12px">ประเภท<select id="newRestaurantType" class="search" style="width:100%;margin-top:8px"><option>อาหาร</option><option>เครื่องดื่ม</option><option>ของหวาน</option><option>อื่นๆ</option></select></label><div class="grid-2" style="margin-top:12px"><label class="small bold">เวลาเปิด<input id="newRestaurantOpen" class="search" type="time" value="08:00" style="width:100%;margin-top:8px"></label><label class="small bold">เวลาปิด<input id="newRestaurantClose" class="search" type="time" value="18:00" style="width:100%;margin-top:8px"></label></div><label class="small bold" style="display:block;margin-top:12px">รูปภาพร้าน<input id="newRestaurantImage" type="file" accept="image/*" style="display:block;margin-top:8px"></label><button class="btn btn-primary btn-full" style="margin-top:16px" onclick="createRestaurant()">บันทึกร้านค้า</button>`) }
             function createRestaurant() { const name = document.getElementById('newRestaurantName').value.trim(); const requestedId = document.getElementById('newRestaurantId').value.trim().toLowerCase(); const type = document.getElementById('newRestaurantType').value; const open = document.getElementById('newRestaurantOpen').value; const close = document.getElementById('newRestaurantClose').value; const file = document.getElementById('newRestaurantImage').files[0]; if (!name || !/^[a-z0-9][a-z0-9-]*$/.test(requestedId) || restaurants.some(item => item.id === requestedId) || !open || !close) { toast('กรุณากรอกข้อมูลและ Restaurant ID ที่ไม่ซ้ำให้ถูกต้อง'); return } const restaurant = { id: requestedId, name, type, icon: type === 'เครื่องดื่ม' ? '🥤' : type === 'ของหวาน' ? '🍰' : '🍛', rating: 'ใหม่', open: true, manualOpen: true, hours: `${open}–${close} น.`, desc: 'ร้านค้าที่เข้าร่วมแคนทีน', categories: ['ทั้งหมด', 'เมนูแนะนำ'], menu: [], paymentQr: null, image: null }; const finish = () => { restaurants.push(restaurant); closeModalNow(); toast(`เพิ่มร้าน ${name} แล้ว`); renderCounter(); renderRestaurants() }; if (file) readImageFile(file, image => { restaurant.image = image; finish() }); else finish() }
 
+            function saveCounterQr(input, restaurantId) { const restaurant = restaurants.find(item => item.id === restaurantId); if (!restaurant) return; readImageFile(input.files[0], image => { restaurant.paymentQr = image; renderCounter(); toast('บันทึก QR สำหรับชำระเงินหน้าเคาน์เตอร์แล้ว') }) }
+            function deleteRestaurant(id) { const restaurant = restaurants.find(item => item.id === id); if (!restaurant) return; if (!confirm(`ต้องการลบร้าน ${restaurant.name} หรือไม่?`)) return; if (state.currentRestaurant?.id === id) state.currentRestaurant = null; state.cart = state.cart.filter(item => item.restaurantId !== id); state.orders = state.orders.filter(order => order.restaurantId !== id); restaurants.splice(restaurants.indexOf(restaurant), 1); renderCounter(); renderRestaurants(); updateCartBadge(); toast(`ลบร้าน ${restaurant.name} แล้ว`) }
+            renderCounterRestaurantDirectory = function () { const box = document.getElementById('counterRestaurantDirectory'); box.innerHTML = `<div class="section-title"><div><h2>ร้านค้าและ Restaurant ID</h2><div class="muted small">ใช้ Restaurant ID สำหรับเข้าสู่ระบบ Restaurants และรับชำระเงินหน้าเคาน์เตอร์</div></div><span class="status pending">${restaurants.length} ร้าน</span></div><div class="restaurant-directory-list">${restaurants.map(restaurant => `<div class="restaurant-id-row"><div class="row" style="justify-content:flex-start;min-width:0"><span style="font-size:28px">${restaurant.icon}</span><div><b>${restaurant.name}</b><div class="muted small">${restaurant.type} · ${restaurant.hours}</div><div class="muted tiny">${restaurant.paymentQr ? 'มี QR พร้อมใช้งาน' : 'ยังไม่มี QR'}</div></div></div><div class="row" style="justify-content:flex-end"><span class="restaurant-id-code">${restaurant.id}</span><button class="copy-id-btn" onclick="copyRestaurantId('${restaurant.id}')">คัดลอก</button><label class="copy-id-btn" style="cursor:pointer">QR<input type="file" accept="image/*" onchange="saveCounterQr(this,'${restaurant.id}')" style="display:none"></label><button class="btn btn-danger" title="ลบร้านค้า" aria-label="ลบร้านค้า ${restaurant.name}" style="min-height:32px;padding:0 10px" onclick="deleteRestaurant('${restaurant.id}')">🗑</button></div></div>`).join('')}</div>` }
+            renderStaffStoreSettings = function () { const restaurant = getStaffRestaurant(); const box = document.getElementById('staffStoreSettings'); if (!box) return; box.innerHTML = `<div class="section-title"><div><h2>จัดการร้านและเมนู</h2><div class="muted small">ข้อมูลนี้จะแสดงในหน้าลูกค้าและใช้กับคำสั่งซื้อกลับบ้าน</div></div><span class="status pending">ID: ${restaurant.id}</span></div><label class="small bold" style="display:block">รูปภาพร้าน<input type="file" accept="image/*" onchange="saveRestaurantImage(this)" style="display:block;margin-top:8px"></label><div class="divider"></div><h3>เพิ่มเมนูอาหาร</h3><div class="grid-2"><input id="staffMenuName" class="search" placeholder="ชื่อเมนู"><input id="staffMenuPrice" class="search" type="number" min="1" placeholder="ราคา (บาท)"><input id="staffMenuCategory" class="search" placeholder="หมวดหมู่"><label class="small bold">รูปอาหาร<input id="staffMenuImage" type="file" accept="image/*" style="display:block;margin-top:8px"></label></div><button class="btn btn-primary" style="margin-top:10px" onclick="addStaffMenu()">+ เพิ่มเมนู</button><div class="divider"></div>${restaurant.menu.map(item => `<div class="row" style="padding:8px 0;border-top:1px solid var(--line)"><span>${item.image ? `<img src="${item.image}" alt="${item.name}" style="width:42px;height:42px;object-fit:cover;border-radius:8px;vertical-align:middle">` : item.icon} <b>${item.name}</b><span class="muted small"> · ${item.cat}</span></span><span><b>${money(item.price)}</b> <button class="btn btn-danger" style="min-height:32px;padding:0 10px" onclick="removeStaffMenu('${item.id}')">ลบ</button></span></div>`).join('')}</div>` }
+            openTakeawayOrderConfirm = function () { if (!state.cart.length) return; const total = state.cart.reduce((sum, item) => sum + item.price * item.qty, 0); const qrRestaurants = [...new Set(state.cart.map(item => item.restaurantId))].map(id => restaurants.find(restaurant => restaurant.id === id)).filter(restaurant => restaurant?.paymentQr); openModal(`<div class="modal-head"><h2>ชำระเงินกลับบ้าน</h2><button class="close" onclick="closeModalNow()">×</button></div><div class="info-banner" style="margin:14px 0"><div class="info-icon">🥡</div><div><b>พร้อมเพย์ / QR Payment</b><div class="muted small">รับอาหารที่หน้าร้าน · ยอดรวม ${money(total)}</div></div></div>${qrRestaurants.length ? qrRestaurants.map(restaurant => `<div class="card" style="padding:12px;margin-top:10px;text-align:center"><b>${restaurant.name}</b><img src="${restaurant.paymentQr}" alt="QR พร้อมเพย์ ${restaurant.name}" style="display:block;width:180px;height:180px;object-fit:contain;margin:8px auto 0"></div>`).join('') : '<p class="muted small">ร้านค้ายังไม่ได้เพิ่ม QR สำหรับชำระเงิน</p>'}<button class="btn btn-primary btn-full" style="margin-top:14px" onclick="payTakeawayOrder()">ยืนยันการชำระเงิน ${money(total)}</button>`) }
             /* ========================= RENDER ========================= */
             function renderAll() { renderHome(); if (document.getElementById('tables').classList.contains('active')) renderTables(); if (document.getElementById('restaurants').classList.contains('active')) renderRestaurants(); if (document.getElementById('menu').classList.contains('active')) renderMenu(); if (document.getElementById('cart').classList.contains('active')) renderCart(); if (document.getElementById('tracking').classList.contains('active')) renderTracking(); if (document.getElementById('staff').classList.contains('active')) { renderStaff(); renderStaffStoreSettings() } if (document.getElementById('counter').classList.contains('active')) renderCounter(); updateCartBadge() }
 
